@@ -14,13 +14,19 @@
 #   pytorchNixRoot:  Path to sibling pytorch-nix repo (default ../../../pytorch-nix)
 
 { tvVersion, pythonVersion, backend, sm ? null, isa ? null, cudaVersion ? null
-  # Absolute path to the sibling pytorch-nix checkout. The original
-  # `../../../../pytorch-nix` default broke under `flox build` because the
-  # source tree gets copied to /nix/store/<hash>-source/ before evaluation,
-  # so the relative path resolves to /nix/store/pytorch-nix (does not
-  # exist). Until we replace this with a fetchFromGitHub-pinned source,
-  # callers on other machines must override pytorchNixRoot explicitly.
-, pytorchNixRoot ? /home/daedalus/dev/builds/pytorch-nix }:
+  # Source for the matching pytorch-nix wrapper. Defaults to a content-
+  # addressed builtins.fetchTarball of the upstream barstoolbluz/pytorch-nix
+  # repo at a pinned revision — works under flox build (which copies our
+  # source into /nix/store before evaluation), works on any machine, and
+  # doesn't pull the local .git into the store.
+  #
+  # To develop against an unpushed local working tree, override with a
+  # local path: `pytorchNixRoot = /home/you/dev/pytorch-nix`.
+, pytorchNixRoot ? builtins.fetchTarball {
+    url = "https://github.com/barstoolbluz/pytorch-nix/archive/08d70e562a5a2c551352425bce7c1f8d2bf59d38.tar.gz";
+    sha256 = "1b8ja70554905hgvm8y8lzh8ajbq3adkbrsz9lb13bjlq8012pf6";
+  }
+}:
 
 let
   # ── Lookup tables ─────────────────────────────────────────────────────
