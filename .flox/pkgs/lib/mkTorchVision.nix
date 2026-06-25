@@ -14,7 +14,13 @@
 #   pytorchNixRoot:  Path to sibling pytorch-nix repo (default ../../../pytorch-nix)
 
 { tvVersion, pythonVersion, backend, sm ? null, isa ? null, cudaVersion ? null
-, pytorchNixRoot ? ../../../../pytorch-nix }:
+  # Absolute path to the sibling pytorch-nix checkout. The original
+  # `../../../../pytorch-nix` default broke under `flox build` because the
+  # source tree gets copied to /nix/store/<hash>-source/ before evaluation,
+  # so the relative path resolves to /nix/store/pytorch-nix (does not
+  # exist). Until we replace this with a fetchFromGitHub-pinned source,
+  # callers on other machines must override pytorchNixRoot explicitly.
+, pytorchNixRoot ? /home/daedalus/dev/builds/pytorch-nix }:
 
 let
   # ── Lookup tables ─────────────────────────────────────────────────────
