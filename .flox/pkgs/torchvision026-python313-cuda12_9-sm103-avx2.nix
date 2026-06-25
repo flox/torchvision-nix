@@ -1,0 +1,3 @@
+# TorchVision 0.26 (↔ PyTorch 2.11) for NVIDIA B300, GB300 (SM103) — AVX2 — CUDA 12.9 (driver 560+)
+{ pkgs ? import <nixpkgs> {} }:
+import ./lib/mkTorchVision.nix { tvVersion = "0.26"; pythonVersion = "313"; backend = "cuda"; sm = "103"; isa = "avx2"; cudaVersion = "12_9"; }

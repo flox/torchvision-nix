@@ -1,0 +1,3 @@
+# TorchVision 0.25 (↔ PyTorch 2.10) for NVIDIA L40, RTX 4090 (SM89) — ARMv9 — CUDA 12.8 (driver 550+)
+{ pkgs ? import <nixpkgs> {} }:
+import ./lib/mkTorchVision.nix { tvVersion = "0.25"; pythonVersion = "313"; backend = "cuda"; sm = "89"; isa = "armv9"; cudaVersion = "12_8"; }

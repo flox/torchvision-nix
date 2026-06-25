@@ -1,0 +1,3 @@
+# TorchVision 0.25 (↔ PyTorch 2.10) for NVIDIA A40, RTX 3090 (SM86) — AVX-512 VNNI — CUDA 13.1 (driver 590+)
+{ pkgs ? import <nixpkgs> {} }:
+import ./lib/mkTorchVision.nix { tvVersion = "0.25"; pythonVersion = "313"; backend = "cuda"; sm = "86"; isa = "avx512vnni"; cudaVersion = "13_1"; }

@@ -1,0 +1,3 @@
+# TorchVision 0.25 (↔ PyTorch 2.10) for NVIDIA H100, H200, L40S (SM90) — AVX — CUDA 12.8 (driver 550+)
+{ pkgs ? import <nixpkgs> {} }:
+import ./lib/mkTorchVision.nix { tvVersion = "0.25"; pythonVersion = "313"; backend = "cuda"; sm = "90"; isa = "avx"; cudaVersion = "12_8"; }
